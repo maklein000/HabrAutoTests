@@ -1,8 +1,8 @@
-# Habr python web autotests 
+# Habr Python web autotests 
 
 Проект для обучения автоматизации веб-тестирования на языке Python
 
-## Список тестов для Acceptance-тестирования
+### Список тестов для Acceptance-тестирования
 
 - Поиск 
 - Пагинация
