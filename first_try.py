@@ -1,7 +1,7 @@
 from selenium.webdriver.chrome import webdriver
 import time
 
-driver = webdriver.WebDriver()
+driver = webdriver.WebDriver(executable_path="chromedriver")
 
 driver.get("https://habr.com")
 
