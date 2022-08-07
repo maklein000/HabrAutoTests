@@ -8,18 +8,18 @@ driver = webdriver.WebDriver(executable_path="chromedriver")
 driver.get("https://habr.com/ru/all/")
 
 
-time.sleep(3)
+time.sleep(1)
 
 search_button_locator = By.CLASS_NAME, 'tm-header-user-menu__search'
 
 search_button = driver.find_element(*search_button_locator)
 search_button.click()
-time.sleep(3)
+time.sleep(1)
 
 # вбить текст
 search_input_locator = By.CLASS_NAME, 'tm-input-text-decorated__input'
 search_input = driver.find_element(*search_input_locator)
-text_to_search = 'Жопа'
+text_to_search = 'Selenium'
 search_input.send_keys(text_to_search)
 
 # нажать на иконку
@@ -38,5 +38,5 @@ print(f'Number of articles is {len(articles)}')
 last_page_locator = By.XPATH, '(//*[@class="tm-pagination__page"])[last()]'
 last_page_number = driver.find_element(*last_page_locator)
 element_text = last_page_number.text
-print (f'Number of pages is {element_text}')
+print(f'Number of pages is {element_text}')
 driver.quit()
