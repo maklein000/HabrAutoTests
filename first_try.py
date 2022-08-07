@@ -1,6 +1,6 @@
-from selenium.webdriver.chrome import webdriver
 import time
 
+from selenium.webdriver.chrome import webdriver
 from selenium.webdriver.common.by import By
 
 driver = webdriver.WebDriver(executable_path="chromedriver")
