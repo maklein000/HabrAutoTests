@@ -7,11 +7,8 @@ driver = webdriver.WebDriver(executable_path="chromedriver")
 
 driver.get("https://habr.com/ru/all/")
 
-
-time.sleep(1)
-
+# Поиск поля поиска
 search_button_locator = By.CLASS_NAME, 'tm-header-user-menu__search'
-
 search_button = driver.find_element(*search_button_locator)
 search_button.click()
 time.sleep(1)
@@ -26,7 +23,6 @@ search_input.send_keys(text_to_search)
 search_icon_locator = By.CSS_SELECTOR, 'span.tm-search__icon'
 search_icon = driver.find_element(*search_icon_locator)
 search_icon.click()
-
 time.sleep(3)
 
 # посчитать количество записей(20)
@@ -39,4 +35,5 @@ last_page_locator = By.XPATH, '(//*[@class="tm-pagination__page"])[last()]'
 last_page_number = driver.find_element(*last_page_locator)
 element_text = last_page_number.text
 print(f'Number of pages is {element_text}')
+
 driver.quit()
