@@ -1,9 +1,32 @@
 import time
 
+<<<<<<< HEAD
+=======
+from selenium.webdriver.chrome import webdriver
+>>>>>>> aafc149 (move all page logic to another file)
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
 
+<<<<<<< HEAD
+=======
+def setup():
+    print('set up')
+    driver = webdriver.WebDriver(executable_path="./chromedriver")
+
+    driver.get("https://habr.com/ru/all/")
+
+    time.sleep(1)
+
+    return driver
+
+
+def tear_down(driver):
+    print('tear down')
+    driver.quit()
+
+
+>>>>>>> aafc149 (move all page logic to another file)
 def count_articles_number(driver):
     count_articles_count(driver)
 

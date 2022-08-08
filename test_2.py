@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from page import *
-=======
 from test_1 import *
->>>>>>> 723a2ea (refactor test blocks, rename tests)
 
 
 def test_empty_search(driver):
@@ -15,8 +11,6 @@ def test_empty_search(driver):
     count_articles_number(driver)
 
     check_empty_page_text(driver)
-<<<<<<< HEAD
-=======
 
 
 def check_empty_page_text(driver):
@@ -34,4 +28,3 @@ if __name__ == '__main__':
         print(f'Test failed, {error}')
 
     tear_down(driver_object)
->>>>>>> 723a2ea (refactor test blocks, rename tests)
