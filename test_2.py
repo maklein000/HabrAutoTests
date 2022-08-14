@@ -1,4 +1,4 @@
-from test_1 import *
+from page import *
 
 
 def test_empty_search(driver):
@@ -13,18 +13,3 @@ def test_empty_search(driver):
     check_empty_page_text(driver)
 
 
-def check_empty_page_text(driver):
-    # проверяем текст
-    empty_res_locator = By.XPATH, '//*[@data-test-id="empty-placeholder-text"]'
-    empty_results = driver.find_element(*empty_res_locator)
-    print(f'Text on page: {empty_results.text}')
-
-
-if __name__ == '__main__':
-    driver_object = setup()
-    try:
-        test_empty_search(driver_object)
-    except NoSuchElementException as error:
-        print(f'Test failed, {error}')
-
-    tear_down(driver_object)
