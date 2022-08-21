@@ -1,44 +1,69 @@
 import time
 from locators import *
 
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
+
+class MainPage:
+    url = 'https://habr.com/ru/all/'
+
+    def __init__(self, webdriver):
+        self.__webdriver = webdriver
+
+    def open(self):
+        self.__webdriver.get(self.url)
+
+    @property
+    def search_button(self):
+        return self.__webdriver.find_element(*search_button_locator)
+
+    def click_search(self):
+        time.sleep(1)
+        self.search_button.click()
+
+        time.sleep(3)
+
+        return SearchResultsPage(self.__webdriver)
 
 
-def count_pages_number(driver):
-    last_page_number = driver.find_element(*last_page_locator)
-    element_text = last_page_number.text
-    print(f'Number of pages is {element_text}')
+class SearchResultsPage:
+    url = 'https://habr.com/ru/search/'
 
+    def search(self, search_text):
+        self.search_input.send_keys(search_text)
 
-def go_to_last_page(driver):
-    last_page = driver.find_element(*last_page_locator)
-    last_page.click()
+        self.search_button.click()
+        time.sleep(1)
 
+    def __init__(self, webdriver):
+        self.__webdriver = webdriver
 
-def count_articles_number(driver):
-    articles = driver.find_elements(*article_locator)
-    print(f'Number of articles is {len(articles)}')
+    @property
+    def last_page_number(self):
+        return self.__webdriver.find_element(*last_page_locator)
 
+    @property
+    def search_input(self):
+        return self.__webdriver.find_element(*search_input_locator)
 
-def click_search_button(driver):
-    search_icon = driver.find_element(*search_icon_locator)
-    search_icon.click()
-    time.sleep(3)
+    @property
+    def search_button(self):
+        return self.__webdriver.find_element(*search_icon_locator)
 
+    def count_pages_number(self):
+        return self.last_page_number.text
 
-def type_text(driver, text):
-    search_input = driver.find_element(*search_input_locator)
-    text_to_search = text
-    search_input.send_keys(text_to_search)
+    def go_to_last_page(self):
+        self.last_page_number.click()
 
+    @property
+    def articles(self):
+        return self.__webdriver.find_elements(*article_locator)
 
-def click_search_form(driver):
-    search_button = driver.find_element(*search_button_locator)
-    search_button.click()
-    time.sleep(1)
+    def count_articles_number(self):
+        return len(self.articles)
 
+    @property
+    def empty_result_banner(self):
+        return self.__webdriver.find_element(*empty_res_locator)
 
-def check_empty_page_text(driver):
-    empty_results = driver.find_element(*empty_res_locator)
-    print(f'Text on page: {empty_results.text}')
+    def get_check_empty_page_text(self):
+        return self.empty_result_banner.text

@@ -1,16 +1,11 @@
 import pytest
-import time
+
 from selenium.webdriver.chrome import webdriver
 
 
 def setup():
     print('set up')
     driver = webdriver.WebDriver(executable_path="./chromedriver")
-
-    driver.get("https://habr.com/ru/all/")
-
-    time.sleep(1)
-
     return driver
 
 
