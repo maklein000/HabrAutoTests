@@ -9,6 +9,5 @@ def test_basic_search(driver):
 
     page.search('NFT')
 
-    print(page.count_articles_number())
-
-    print(page.count_pages_number())
+    assert page.count_articles_number() == 20
+    assert page.count_pages_number() == 19
