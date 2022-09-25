@@ -90,6 +90,9 @@ class SearchPage(HabrBase):
                 presence_of_element_located(article_locator)
             ))
 
+    def is_page_shown(self):
+        return self.search_input.is_displayed()
+
     @property
     def empty_result_banner(self):
         return self.webdriver.find_element(*empty_res_locator)
