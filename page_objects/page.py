@@ -66,6 +66,9 @@ class SearchPage(HabrBase):
         self.search_button.click()
         time.sleep(1)
 
+    def is_page_shown(self):
+        return self.search_input.is_displayed()
+
     @property
     def empty_result_banner(self):
         return self.webdriver.find_element(*empty_res_locator)
