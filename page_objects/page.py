@@ -1,15 +1,16 @@
 import time
-from locators.locators import *
-
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.expected_conditions import *
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.remote.webdriver import WebDriver
+
+from locators.locators import *
 
 
 class HabrBase:
     url = 'https://habr.com/ru/all/'
 
-    def __init__(self, webdriver):
-        self.webdriver = webdriver
+    def __init__(self, webdriver: WebDriver):
+        self.webdriver: WebDriver = webdriver
 
     @property
     def last_page_number(self):
@@ -39,9 +40,19 @@ class HabrBase:
 class MainPage(HabrBase):
     url = 'https://habr.com/ru/all/'
 
+    # services list
+    HABR = 0
+    QNA = 1
+    CAREER = 2
+    FL = 3
+
     @property
     def search_button(self):
         return self.webdriver.find_element(*search_button_locator)
+
+    @property
+    def services(self):
+        return self.webdriver.find_elements(*services_dropdown_element)
 
     def click_search(self):
         self.search_button.click()
@@ -62,6 +73,20 @@ class MainPage(HabrBase):
         super().open()
         self.wait_full_page()
 
+    def click_services_dropdown(self):
+        element = self.webdriver.find_element(*services_dropdown_button)
+        element.click()
+
+    def click_external_service(self, service_index):
+        assert service_index in (self.HABR, self.QNA, self.CAREER, self.FL)
+
+        element = self.services[service_index]
+        element.click()
+
+        self.focus_on_new_tab()
+
+        return CareerPage(self.webdriver)
+
 
 class SearchPage(HabrBase):
     url = 'https://habr.com/ru/search/'
@@ -76,6 +101,7 @@ class SearchPage(HabrBase):
 
     def search(self, search_text):
         self.search_input.send_keys(search_text)
+
         self.search_button.click()
 
         self.wait_results_or_empty()
@@ -99,6 +125,10 @@ class SearchPage(HabrBase):
 
     def get_empty_page_text(self):
         return self.empty_result_banner.text
+
+
+class CareerPage(HabrBase):
+    url = 'https://career.habr.com/'
 
     def wait_full_page(self):
         wait = WebDriverWait(self.webdriver, 5)
