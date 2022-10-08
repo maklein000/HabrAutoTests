@@ -3,6 +3,7 @@ from locators.locators import *
 
 
 class HabrBase:
+    url = 'https://habr.com/ru/all/'
 
     def __init__(self, webdriver):
         self.webdriver = webdriver
@@ -28,12 +29,12 @@ class HabrBase:
     def current_url(self):
         return self.webdriver.current_url
 
+    def open(self):
+        self.webdriver.get(self.url)
+
 
 class MainPage(HabrBase):
     url = 'https://habr.com/ru/all/'
-
-    def open(self):
-        self.webdriver.get(self.url)
 
     @property
     def search_button(self):
@@ -45,10 +46,10 @@ class MainPage(HabrBase):
 
         time.sleep(3)
 
-        return SearchResultsPage(self.webdriver)
+        return SearchPage(self.webdriver)
 
 
-class SearchResultsPage(HabrBase):
+class SearchPage(HabrBase):
     url = 'https://habr.com/ru/search/'
 
     @property
