@@ -106,6 +106,28 @@ class MainPage(HabrBase):
         page_class = service_pages_map.get(service_index)
         return page_class(self.webdriver)
 
+    def click_services_dropdown(self):
+        element = self.webdriver.find_element(*services_dropdown_button)
+        element.click()
+
+    def click_external_service(self, service_index):
+        assert service_index in (self.HABR, self.QNA, self.CAREER, self.FL)
+
+        service_pages_map = {
+            self.HABR: MainPage,
+            self.QNA: QNAPage,
+            self.CAREER: CareerPage,
+            self.FL: FLPage,
+
+        }
+
+        element = self.services[service_index]
+        element.click()
+
+        self.focus_on_new_tab()
+        page_class = service_pages_map.get(service_index)
+        return page_class(self.webdriver)
+
 
 class SearchPage(HabrBase):
     url = 'https://habr.com/ru/search/'
@@ -134,6 +156,9 @@ class SearchPage(HabrBase):
                 presence_of_element_located(empty_res_locator),
                 presence_of_element_located(article_locator)
             ))
+
+    def is_page_shown(self):
+        return self.search_input.is_displayed()
 
     def is_page_shown(self):
         return self.search_input.is_displayed()
