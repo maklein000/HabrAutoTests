@@ -6,4 +6,4 @@ def test_articles_number_on_page(page):
 
 def test_pages_number_on_page(page):
     page.search('NFT')
-    assert page.count_pages_number() == 19
+    assert page.count_pages_number() == 21
